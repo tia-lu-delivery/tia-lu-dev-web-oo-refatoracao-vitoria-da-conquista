@@ -92,7 +92,7 @@ Este projeto aplica **refatoração profunda** utilizando **padrões de projeto*
 ---
 
 ## 👥 Equipe
-Este projeto foi desenvolvido por uma equipe de **5 membros**:  
+Este projeto foi desenvolvido pela equipe:  
 - Membro 1  
 - Membro 2  
 - Membro 3  
