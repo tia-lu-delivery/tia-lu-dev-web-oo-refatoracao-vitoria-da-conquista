@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/tia-lu-delivery/java/java.iml" filepath="$PROJECT_DIR$/tia-lu-delivery/java/java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tia-lu-delivery.iml" filepath="$PROJECT_DIR$/tia-lu-delivery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tia-lu-dev-web-oo-refatoracao-vitoria-da-conquista.iml" filepath="$PROJECT_DIR$/.idea/tia-lu-dev-web-oo-refatoracao-vitoria-da-conquista.iml" />
+    </modules>
+  </component>
+</project>
