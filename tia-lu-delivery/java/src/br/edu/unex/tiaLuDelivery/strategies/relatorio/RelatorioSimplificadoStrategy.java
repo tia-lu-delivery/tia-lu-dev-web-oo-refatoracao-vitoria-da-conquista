@@ -6,14 +6,46 @@ import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Estratégia para geração de relatórios simplificados.
+ * 
+ * Esta classe implementa o padrão Strategy para gerar relatórios resumidos
+ * contendo apenas as informações essenciais: total de pedidos, valor total
+ * arrecadado e valor médio por pedido.
+ * 
+ */
 public class RelatorioSimplificadoStrategy implements RelatorioStrategy {
 
+    /**
+     * Lista de pedidos que serão incluídos no relatório.
+     */
     private final List<Order> pedidosHoje;
 
+    /**
+     * Construtor que inicializa a estratégia com a lista de pedidos.
+     * 
+     * @param pedidosHoje Lista de pedidos para incluir no relatório.
+     *                    Não pode ser null.
+     * @throws IllegalArgumentException se a lista de pedidos for null
+     */
     public RelatorioSimplificadoStrategy(List<Order> pedidosHoje) {
+        if (pedidosHoje == null) {
+            throw new IllegalArgumentException("A lista de pedidos não pode ser null");
+        }
         this.pedidosHoje = pedidosHoje;
     }
 
+    /**
+     * Gera um relatório simplificado com informações resumidas dos pedidos.
+     * 
+     * O relatório inclui:
+     * 
+     * - Total de pedidos
+     * - Valor total arrecadado
+     * - Valor médio por pedido
+     * 
+     * @return String contendo o relatório simplificado formatado
+     */
     @Override
     public String gerarRelatorio() {
         int totalPedidos = pedidosHoje.size();

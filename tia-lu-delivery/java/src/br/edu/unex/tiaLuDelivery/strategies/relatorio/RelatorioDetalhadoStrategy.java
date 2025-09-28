@@ -6,14 +6,53 @@ import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Estratégia para geração de relatórios detalhados.
+ * 
+ * Esta classe implementa o padrão Strategy para gerar relatórios completos
+ * contendo informações detalhadas sobre cada pedido, incluindo dados do cliente,
+ * itens pedidos, preços e totais.
+ * 
+ */
 public class RelatorioDetalhadoStrategy implements RelatorioStrategy {
 
+    /**
+     * Lista de pedidos que serão incluídos no relatório detalhado.
+     */
     private final List<Order> pedidosHoje;
 
+    /**
+     * Construtor que inicializa a estratégia com a lista de pedidos.
+     * 
+     * @param pedidosHoje Lista de pedidos para incluir no relatório detalhado.
+     *                    Não pode ser null.
+     * @throws IllegalArgumentException se a lista de pedidos for null
+     */
     public RelatorioDetalhadoStrategy(List<Order> pedidosHoje) {
+        if (pedidosHoje == null) {
+            throw new IllegalArgumentException("A lista de pedidos não pode ser null");
+        }
         this.pedidosHoje = pedidosHoje;
     }
 
+    /**
+     * Gera um relatório detalhado com informações completas dos pedidos.
+     * 
+     * O relatório inclui para cada pedido:
+     * 
+     * - ID do pedido
+     * - Informações do cliente (nome, ID, telefone)
+     * - Status do pedido
+     * - Lista detalhada de itens com quantidades e preços
+     * - Total do pedido
+     * 
+     * Apresenta um resumo geral com:
+     * 
+     * - Total de pedidos
+     * - Valor total arrecadado
+     * 
+     * @return String contendo o relatório detalhado formatado
+     */
     @Override
     public String gerarRelatorio() {
         StringBuilder relatorio = new StringBuilder();
