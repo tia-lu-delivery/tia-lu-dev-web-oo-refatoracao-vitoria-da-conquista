@@ -1,0 +1,110 @@
+@startuml TiaLuDeliveryClassDiagram
+!theme plain
+
+title Sistema TiaLu Delivery - Diagrama de Classes
+' Configurações de estilo para forçar símbolos + e -
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor lightblue
+    BorderColor black
+    ArrowColor black
+}
+' Força exibição de texto ao invés de ícones
+hide empty members
+skinparam monochrome false
+
+' ================================
+' PADRÃO STRATEGY - RELATÓRIOS
+' ================================
+
+package "strategies.relatorio" {
+    interface RelatorioStrategy <<interface>> {
+        +gerarRelatorio(): String
+    }
+
+    class RelatorioDetalhadoStrategy {
+        -pedidosHoje: List<Order>
+        +RelatorioDetalhadoStrategy(pedidosHoje: List<Order>)
+        +gerarRelatorio(): String
+    }
+
+    class RelatorioSimplificadoStrategy {
+        -pedidosHoje: List<Order>
+        +RelatorioSimplificadoStrategy(pedidosHoje: List<Order>)
+        +gerarRelatorio(): String
+    }
+}
+
+' ================================
+' MODELOS DE DOMÍNIO (Inferidos)
+' ================================
+
+package "model" {
+    class Order {
+        -id: String
+        -customer: Customer
+        -items: List<OrderItem>
+        -status: String
+        +getId(): String
+        +getCustomer(): Customer
+        +getItems(): List<OrderItem>
+        +getStatus(): String
+        +total(): BigDecimal
+    }
+
+    class OrderItem {
+        -menuItem: MenuItem
+        -amount: int
+        +getMenuItem(): MenuItem
+        +getAmount(): int
+        +subtotal(): BigDecimal
+    }
+
+    class Customer {
+        -id: String
+        -name: String
+        -phoneNumber: String
+        +getId(): String
+        +getName(): String
+        +getPhoneNumber(): String
+    }
+
+    class MenuItem {
+        -name: String
+        -unitPrice: BigDecimal
+        +getName(): String
+        +getUnitPrice(): BigDecimal
+    }
+}
+
+' ================================
+' RELAÇÕES
+' ================================
+
+' Implementações do Strategy
+RelatorioStrategy <|.. RelatorioDetalhadoStrategy : implementa
+RelatorioStrategy <|.. RelatorioSimplificadoStrategy : implementa
+
+' Relações de uso/dependência
+RelatorioDetalhadoStrategy ..> Order : usa
+RelatorioSimplificadoStrategy ..> Order : usa
+RelatorioDetalhadoStrategy ..> OrderItem : usa
+
+' Relações entre modelos
+Order "1" *-- "1..*" OrderItem : contém
+Order "1" *-- "1" Customer : possui
+OrderItem "1" *-- "1" MenuItem : referencia
+
+' ================================
+' NOTAS EXPLICATIVAS
+' ================================
+
+note top of RelatorioStrategy : Interface do padrão Strategy\npara geração de relatórios
+
+note right of RelatorioDetalhadoStrategy : Gera relatórios completos\ncom informações detalhadas\nde cada pedido
+
+note right of RelatorioSimplificadoStrategy : Gera relatórios resumidos\ncom totais e estatísticas\ngerais
+
+note bottom of Order : Representa um pedido no sistema\ncom cliente, itens e status
+
+@enduml
